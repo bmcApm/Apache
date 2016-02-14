@@ -1,0 +1,10 @@
+{
+    "END_USER_LATENCY": {
+       "defaultAggregate": "avg",
+       "defaultResolutionMS": 1000,
+       "description": "Metric definition for the tutorial meter plugin",
+       "displayName": "Tutorial Metric",
+       "displayNameShort": "Tut. Metric",
+       "unit": "Duration"
+    }
+}

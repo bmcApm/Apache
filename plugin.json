@@ -1,0 +1,38 @@
+{
+   "name": "Apache",
+   "version": "1.0.0",
+   "meterVersionRequired": "4.2.0-611",
+   "unsupportedPlatforms": [],
+   "tags" : "tugboat",
+   "description": "Tugboat Plugin",
+   "icon": "tugboat.png",
+   "command_lua": "main.lua",
+   "postExtract": "",
+   "metrics": [
+       "END_USER_LATENCY"
+    ],
+   "dashboards": [
+      {
+        "name": "Tugboat",
+        "layout": "d-w=1&d-h=1&d-pad=5&d-light=1&d-bg=none&d-g-END_USER_LATENCY=0-0-1-1"
+      }
+    ],
+   "paramSchema": [
+     {
+       "title": "Apache",
+       "name": "Apache",
+       "description": "Source to use for measurements",
+       "type": "string",
+       "default": "Apache",
+       "required": true
+     },
+     {
+       "title": "Interval",
+       "name": "interval",
+       "description": "How often to send measurement in seconds",
+       "type": "int",
+       "default": "5",
+       "required": true
+     }
+   ]
+}

@@ -48,7 +48,7 @@ end
 local function isSupportedWinOSVersion()
     local result = false
     local verCommand = "ver"
-    local verHandle = io.popen(verCommand)
+    local verHandle = os.execute(verCommand)
     local verResult = verHandle:read("*a")
     verHandle:close()
     if (string.find(verResult, "Version 6.")) then result=true end
@@ -58,7 +58,7 @@ end
 local function is64BitWinOSVersion()
     local osBit = nil
     local bitCommand = "wmic os get osarchitecture"
-    local bitHandle = io.popen(bitCommand)
+    local bitHandle = os.execute(bitCommand)
     local bitResult = bitHandle:read("*a")
     bitHandle:close()
     if (string.find(bitResult, "64")) then
@@ -138,7 +138,7 @@ end
 
 local function winApacheRestart(apacheRootDirectory)
     local Command = apacheRootDirectory.."bin/httpd.exe -k restart"
-    local Handle = io.popen(Command)
+    local Handle = os.execute(Command)
     local Result = Handle:read("*a")
     Handle:close()
     return Result
@@ -146,7 +146,7 @@ end
 
 local function linuxApacheRestart()
     local Command = "hapachectl –k graceful"
-    local Handle = io.popen(Command)
+    local Handle = os.execute(Command)
     local Result = Handle:read("*a")
     Handle:close()
     return Result
@@ -169,12 +169,12 @@ local function get_win_binary_path()
     local commandOutput = nil
     local result = nil
 
-    local ver22Handle = io.popen("sc qc apache2.2")
+    local ver22Handle = os.execute("sc qc apache2.2")
     local ver22Result = ver22Handle:read("*a")
     ver22Handle:close()
     if string.find(ver22Result, "SUCCES") then commandOutput = ver22Result end
 
-    local ver24Handle = io.popen("sc qc apache2.4")
+    local ver24Handle = os.execute("sc qc apache2.4")
     local ver24Result = ver24Handle:read("*a")
     ver24Handle:close()
     if string.find(ver24Result, "SUCCES") then commandOutput = ver24Result end
@@ -209,7 +209,7 @@ local function get_win_apache_properties(path)
     local serverArchitecture = nil
     local serverConfigFile = nil
     local apacheProperties = {}
-    local Handle = io.popen(path.." -V")
+    local Handle = os.execute(path.." -V")
     local Result = Handle:read("*a")
     Handle:close()
 

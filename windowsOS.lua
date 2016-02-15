@@ -33,7 +33,7 @@ local confFileNameApache24 = "bmc-aeuem-apache24.conf"
 
 
 local function execute()
-    if (_helper.isSupportedWinOSVersion()) then
+    if (_helper.isSupportedWinOSVersion() and _helper.is64BitWinOSVersion()) then
         apache_exe_path = _helper.get_win_binary_path()
         apache_root_directory = _helper.get_win_apache_root_directory(apache_exe_path)
         apacheProperties = _helper.get_win_apache_properties(apache_exe_path)

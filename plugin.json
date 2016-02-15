@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meterVersionRequired": "4.2.0-611",
   "unsupportedPlatforms": [
-    
   ],
   "tags": "tugboat",
   "description": "Tugboat Plugin",

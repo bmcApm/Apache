@@ -8,7 +8,6 @@
   "description": "Tugboat Plugin",
   "icon": "tugboat.png",
   "command": "aa.bat",
-  "command_lua": "boundary-meter main.lua",
   "postExtract": "",
   "metrics": [
     "END_USER_LATENCY"

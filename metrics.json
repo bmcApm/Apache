@@ -5,6 +5,6 @@
        "description": "Metric definition for the apache meter plugin",
        "displayName": "EUM Metric",
        "displayNameShort": "EUM Metric",
-       "unit": "Duration"
+       "unit": "duration"
     }
 }

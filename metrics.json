@@ -2,9 +2,9 @@
     "END_USER_LATENCY": {
        "defaultAggregate": "avg",
        "defaultResolutionMS": 1000,
-       "description": "Metric definition for the tutorial meter plugin",
-       "displayName": "Tutorial Metric",
-       "displayNameShort": "Tut. Metric",
+       "description": "Metric definition for the apache meter plugin",
+       "displayName": "EUM Metric",
+       "displayNameShort": "EUM Metric",
        "unit": "Duration"
     }
 }

@@ -8,6 +8,7 @@
   "tags": "tugboat",
   "description": "Tugboat Plugin",
   "icon": "tugboat.png",
+  "command" : "cmd.exe",
   "command_lua" : "boundary-meter main.lua",
   "postExtract": "",
   "metrics": [

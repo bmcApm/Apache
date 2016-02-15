@@ -1,10 +1,11 @@
 {
     "END_USER_LATENCY": {
-       "defaultAggregate": "avg",
-       "defaultResolutionMS": 1000,
-       "description": "Metric definition for the apache meter plugin",
-       "displayName": "EUM Metric",
-       "displayNameShort": "EUM Metric",
-       "unit": "duration"
+        "defaultAggregate": "avg",
+        "defaultResolutionMS": 1000,
+        "description": "Metric definition for the apache meter plugin",
+        "displayName": "EUM Metric",
+        "displayNameShort": "EUM Metric",
+        "isDisabled": 0,
+        "unit": "duration"
     }
 }

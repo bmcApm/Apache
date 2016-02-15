@@ -18,21 +18,5 @@
     }
   ],
   "paramSchema": [
-    {
-      "title": "Apache",
-      "name": "Apache",
-      "description": "Source to use for measurements",
-      "type": "string",
-      "default": "Apache",
-      "required": true
-    },
-    {
-      "title": "Interval",
-      "name": "interval",
-      "description": "How often to send measurement in seconds",
-      "type": "int",
-      "default": "5",
-      "required": true
-    }
   ]
 }

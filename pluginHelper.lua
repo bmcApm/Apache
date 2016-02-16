@@ -14,19 +14,19 @@ local pluginHelper = {}
 -- Download functions
 ---------------------------------------------------------------------------------------------------------
 
-local lfs = require ("lfs")
+--local lfs = require ("lfs")
 
-local function downloadFile(fileLocation, fileDestination, fileName)
-    lfs.mkdir(fileDestination)
-    local http = require("socket.http")
-    local body, code = http.request(fileLocation .. fileName)
-    if not body then error(code) end
+--local function downloadFile(fileLocation, fileDestination, fileName)
+--    lfs.mkdir(fileDestination)
+--    local http = require("socket.http")
+--    local body, code = http.request(fileLocation .. fileName)
+--    if not body then error(code) end
 
     -- save the content to a file
-    local f = assert(io.open(fileDestination .. fileName, 'wb')) -- open in "binary" mode
-    f:write(body)
-    f:close()
-end
+--    local f = assert(io.open(fileDestination .. fileName, 'wb')) -- open in "binary" mode
+--    f:write(body)
+--    f:close()
+--end
 
 
 ---------------------------------------------------------------------------------------------------------
@@ -73,27 +73,27 @@ end
 -- Zip functions
 ---------------------------------------------------------------------------------------------------------
 
-local unzip = require "zip"
+--local unzip = require "zip"
 
-local function Extract(zipPath, zipFilename, destinationPath)
-    local zfile, err = unzip.open(zipPath .. zipFilename)
-    -- iterate through each file insize the zip file
-    for file in zfile:files() do
-        local currFile, err = zfile:open(file.filename)
-        local currFileContents = currFile:read("*a") -- read entire contents of current file
+--local function Extract(zipPath, zipFilename, destinationPath)
+--    local zfile, err = unzip.open(zipPath .. zipFilename)
+--    -- iterate through each file insize the zip file
+--    for file in zfile:files() do
+--        local currFile, err = zfile:open(file.filename)
+--        local currFileContents = currFile:read("*a") -- read entire contents of current file
+--
+--        local binaryOutput = io.open(destinationPath .. file.filename, "wb")
+--
+--        -- write current file inside zip to a file outside zip
+--        if(binaryOutput)then
+--            binaryOutput:write(currFileContents)
+--            binaryOutput:close()
+--        end
+--        currFile:close()
+--    end
 
-        local binaryOutput = io.open(destinationPath .. file.filename, "wb")
-
-        -- write current file inside zip to a file outside zip
-        if(binaryOutput)then
-            binaryOutput:write(currFileContents)
-            binaryOutput:close()
-        end
-        currFile:close()
-    end
-
-    zfile:close()
-end
+--    zfile:close()
+--end
 
 
 ---------------------------------------------------------------------------------------------------------

@@ -36,7 +36,7 @@ local pluginHelper = {}
 local function getOsName()
 --    local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
 --    if BinaryFormat == "dll" then
-        return 'windows'
+        return "windows"
 --    elseif BinaryFormat == "so" then
 --        return "linux"
 --    elseif BinaryFormat == "dylib" then

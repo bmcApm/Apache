@@ -10,9 +10,9 @@
 local pluginHelper = {}
 
 
----------------------------------------------------------------------------------------------------------
--- Download functions
----------------------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------------------
+-- -- Download functions
+-- -------------------------------------------------------------------------------------------------------
 
 --local lfs = require ("lfs")
 
@@ -22,16 +22,16 @@ local pluginHelper = {}
 --    local body, code = http.request(fileLocation .. fileName)
 --    if not body then error(code) end
 
-    -- save the content to a file
+-- save the content to a file
 --    local f = assert(io.open(fileDestination .. fileName, 'wb')) -- open in "binary" mode
 --    f:write(body)
 --    f:close()
 --end
 
 
----------------------------------------------------------------------------------------------------------
--- OS functions
----------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------------------------------------
+-- -- OS functions
+-- ---------------------------------------------------------------------------------------------------------
 
 local function getOsName()
     local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
@@ -69,9 +69,9 @@ end
 
 
 
----------------------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------------------
 -- Zip functions
----------------------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------------------
 
 --local unzip = require "zip"
 
@@ -95,159 +95,159 @@ end
 --    zfile:close()
 --end
 
-
----------------------------------------------------------------------------------------------------------
--- Files functions
----------------------------------------------------------------------------------------------------------
-
-local function updateModuleConfFile(confFileName, installDirectory)
-    local confFile = io.open( installDirectory .. confFileName, "r" )
-    local confStr = confFile:read( "*a" )
-    confStr = string.gsub( confStr, "C:/MyInstallDir/", installDirectory)
-    confFile:close()
-
-    confFile = io.open( installDirectory .. confFileName, "w" )
-    confFile:write( confStr )
-    confFile:close()
-end
-
-
-local function createBackupHttpdConfFile(httpdConfFilePath)
-    local backupConfFile = io.open( httpdConfFilePath, "r" )
-    local backuoConfStr = backupConfFile:read( "*a" )
-    backupConfFile:close()
-
-    backupConfFile = io.open( httpdConfFilePath .. ".bmc.backup", "w" )
-    backupConfFile:write( backuoConfStr )
-    backupConfFile:close()
-end
-
-
-local function updateHttpdConfFile(httpdConfFilePath, confFileName)
-    local confFile = io.open( httpdConfFilePath, "a" )
-    confFile:write( " \n" )
-    confFile:write( "## Include for BMC Apache plugin\n" )
-    confFile:write( "include "..confFileName )
-    confFile:close()
-end
-
-
----------------------------------------------------------------------------------------------------------
--- Restart Apache functions
----------------------------------------------------------------------------------------------------------
-
-local function winApacheRestart(apacheRootDirectory)
-    local Command = apacheRootDirectory.."bin/httpd.exe -k restart"
-    local Handle = io.popen(Command)
-    local Result = Handle:read("*a")
-    Handle:close()
-    return Result
-end
-
-local function linuxApacheRestart()
-    local Command = "hapachectl –k graceful"
-    local Handle = io.popen(Command)
-    local Result = Handle:read("*a")
-    Handle:close()
-    return Result
-end
-
----------------------------------------------------------------------------------------------------------
--- Parser functions
----------------------------------------------------------------------------------------------------------
-
-
-function lines(str)
-    local t = {}
-    local function helper(line) table.insert(t, line) return "" end
-    helper((str:gsub("(.-)\r?\n", helper)))
-    return t
-end
-
-
-local function get_win_binary_path()
-    local commandOutput = nil
-    local result = nil
-
-    local ver22Handle = io.popen("sc qc apache2.2")
-    local ver22Result = ver22Handle:read("*a")
-    ver22Handle:close()
-    if string.find(ver22Result, "SUCCES") then commandOutput = ver22Result end
-
-    local ver24Handle = io.popen("sc qc apache2.4")
-    local ver24Result = ver24Handle:read("*a")
-    ver24Handle:close()
-    if string.find(ver24Result, "SUCCES") then commandOutput = ver24Result end
-
-    if (commandOutput ~= nil) then
-        local _lines = {}
-        _lines = lines(commandOutput)
-        for i=1,#_lines do
-            if (string.find(_lines[i], "BINARY_PATH_NAME")) then
-                for token in string.gmatch(_lines[i], "[^\"]+") do
-                    if (string.find(token, ".exe")) then
-                        result = string.gsub(string.sub(token, 0, -1), "\\", "/")
-                        break
-                    end
-                end
-            end
-
-        end
-    end
-    return result
-end
-
-
-local function get_win_apache_root_directory(path)
-    local i = string.find(path, "/bin")
-    return string.sub(path, 0, i)
-end
-
-
-local function get_win_apache_properties(path)
-    local serverVersion = nil
-    local serverArchitecture = nil
-    local serverConfigFile = nil
-    local apacheProperties = {}
-    local Handle = io.popen(path.." -V")
-    local Result = Handle:read("*a")
-    Handle:close()
-
-    if (Result ~= nil) then
-        local _lines = {}
-        _lines = lines(Result)
-        for i=1,#_lines do
-            if (string.find(_lines[i], "Server version:")) then
-                apacheProperties["serverVersion"] = string.sub(string.sub(_lines[i], 16):match( "^%s*(.+)" ), 8, -8)
-            end
-            if (string.find(_lines[i], "Architecture:")) then
-                apacheProperties["serverArchitecture"] = string.sub(string.sub(_lines[i], 14):match( "^%s*(.+)" ), 0, -5)
-            end
-            if (string.find(_lines[i], "-D SERVER_CONFIG_FILE=")) then apacheProperties["serverConfigFile"]= string.sub(_lines[i], 25, -2)
-            end
-            i = i+1
-        end
-    end
-    return apacheProperties
-end
-
-
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-
-pluginHelper.is64BitWinOSVersion = is64BitWinOSVersion
-pluginHelper.isSupportedWinOSVersion = isSupportedWinOSVersion
-pluginHelper.getOsName = getOsName
-pluginHelper.downloadFile = downloadFile
-pluginHelper.Extract = Extract
-pluginHelper.get_win_binary_path = get_win_binary_path
-pluginHelper.get_win_apache_properties = get_win_apache_properties
-pluginHelper.get_win_apache_root_directory = get_win_apache_root_directory
-pluginHelper.updateModuleConfFile = updateModuleConfFile
-pluginHelper.updateHttpdConfFile = updateHttpdConfFile
-pluginHelper.createBackupHttpdConfFile = createBackupHttpdConfFile
-pluginHelper.winApacheRestart = winApacheRestart
-pluginHelper.linuxApacheRestart = linuxApacheRestart
+--
+-- ---------------------------------------------------------------------------------------------------------
+-- -- Files functions
+-- ---------------------------------------------------------------------------------------------------------
+--
+--local function updateModuleConfFile(confFileName, installDirectory)
+--    local confFile = io.open( installDirectory .. confFileName, "r" )
+--    local confStr = confFile:read( "*a" )
+--    confStr = string.gsub( confStr, "C:/MyInstallDir/", installDirectory)
+--    confFile:close()
+--
+--    confFile = io.open( installDirectory .. confFileName, "w" )
+--    confFile:write( confStr )
+--    confFile:close()
+--end
+--
+--
+--local function createBackupHttpdConfFile(httpdConfFilePath)
+--    local backupConfFile = io.open( httpdConfFilePath, "r" )
+--    local backuoConfStr = backupConfFile:read( "*a" )
+--    backupConfFile:close()
+--
+--    backupConfFile = io.open( httpdConfFilePath .. ".bmc.backup", "w" )
+--    backupConfFile:write( backuoConfStr )
+--    backupConfFile:close()
+--end
+--
+--
+--local function updateHttpdConfFile(httpdConfFilePath, confFileName)
+--    local confFile = io.open( httpdConfFilePath, "a" )
+--    confFile:write( " \n" )
+--    confFile:write( "## Include for BMC Apache plugin\n" )
+--    confFile:write( "include "..confFileName )
+--    confFile:close()
+--end
+--
+--
+-- ---------------------------------------------------------------------------------------------------------
+-- --Restart Apache functions
+-- ---------------------------------------------------------------------------------------------------------
+--
+--local function winApacheRestart(apacheRootDirectory)
+--    local Command = apacheRootDirectory.."bin/httpd.exe -k restart"
+--    local Handle = io.popen(Command)
+--    local Result = Handle:read("*a")
+--    Handle:close()
+--    return Result
+--end
+--
+--local function linuxApacheRestart()
+--    local Command = "hapachectl –k graceful"
+--    local Handle = io.popen(Command)
+--    local Result = Handle:read("*a")
+--    Handle:close()
+--    return Result
+--end
+--
+-- ---------------------------------------------------------------------------------------------------------
+-- -- Parser functions
+-- ---------------------------------------------------------------------------------------------------------
+--
+--
+--function lines(str)
+--    local t = {}
+--    local function helper(line) table.insert(t, line) return "" end
+--    helper((str:gsub("(.-)\r?\n", helper)))
+--    return t
+--end
+--
+--
+--local function get_win_binary_path()
+--    local commandOutput = nil
+--    local result = nil
+--
+--    local ver22Handle = io.popen("sc qc apache2.2")
+--    local ver22Result = ver22Handle:read("*a")
+--    ver22Handle:close()
+--    if string.find(ver22Result, "SUCCES") then commandOutput = ver22Result end
+--
+--    local ver24Handle = io.popen("sc qc apache2.4")
+--    local ver24Result = ver24Handle:read("*a")
+--    ver24Handle:close()
+--    if string.find(ver24Result, "SUCCES") then commandOutput = ver24Result end
+--
+--    if (commandOutput ~= nil) then
+--        local _lines = {}
+--        _lines = lines(commandOutput)
+--        for i=1,#_lines do
+--            if (string.find(_lines[i], "BINARY_PATH_NAME")) then
+--                for token in string.gmatch(_lines[i], "[^\"]+") do
+--                    if (string.find(token, ".exe")) then
+--                        result = string.gsub(string.sub(token, 0, -1), "\\", "/")
+--                        break
+--                    end
+--                end
+--            end
+--
+--        end
+--    end
+--    return result
+--end
+--
+--
+--local function get_win_apache_root_directory(path)
+--    local i = string.find(path, "/bin")
+--    return string.sub(path, 0, i)
+--end
+--
+--
+--local function get_win_apache_properties(path)
+--    local serverVersion = nil
+--    local serverArchitecture = nil
+--    local serverConfigFile = nil
+--    local apacheProperties = {}
+--    local Handle = io.popen(path.." -V")
+--    local Result = Handle:read("*a")
+--    Handle:close()
+--
+--    if (Result ~= nil) then
+--        local _lines = {}
+--        _lines = lines(Result)
+--        for i=1,#_lines do
+--            if (string.find(_lines[i], "Server version:")) then
+--                apacheProperties["serverVersion"] = string.sub(string.sub(_lines[i], 16):match( "^%s*(.+)" ), 8, -8)
+--            end
+--            if (string.find(_lines[i], "Architecture:")) then
+--                apacheProperties["serverArchitecture"] = string.sub(string.sub(_lines[i], 14):match( "^%s*(.+)" ), 0, -5)
+--            end
+--            if (string.find(_lines[i], "-D SERVER_CONFIG_FILE=")) then apacheProperties["serverConfigFile"]= string.sub(_lines[i], 25, -2)
+--            end
+--            i = i+1
+--        end
+--    end
+--    return apacheProperties
+--end
+--
+--
+-- ---------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------------------------------------
+--
+--pluginHelper.is64BitWinOSVersion = is64BitWinOSVersion
+--pluginHelper.isSupportedWinOSVersion = isSupportedWinOSVersion
+--pluginHelper.getOsName = getOsName
+--pluginHelper.downloadFile = downloadFile
+--pluginHelper.Extract = Extract
+--pluginHelper.get_win_binary_path = get_win_binary_path
+--pluginHelper.get_win_apache_properties = get_win_apache_properties
+--pluginHelper.get_win_apache_root_directory = get_win_apache_root_directory
+--pluginHelper.updateModuleConfFile = updateModuleConfFile
+--pluginHelper.updateHttpdConfFile = updateHttpdConfFile
+--pluginHelper.createBackupHttpdConfFile = createBackupHttpdConfFile
+--pluginHelper.winApacheRestart = winApacheRestart
+--pluginHelper.linuxApacheRestart = linuxApacheRestart
 
 
 

@@ -33,39 +33,39 @@ local pluginHelper = {}
 -- -- OS functions
 -- ---------------------------------------------------------------------------------------------------------
 
-local function getOsName()
-    local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
-    if BinaryFormat == "dll" then
-        return "windows"
-    elseif BinaryFormat == "so" then
-        return "linux"
-    elseif BinaryFormat == "dylib" then
-        return "mac"
-    end
-    BinaryFormat = nil
-end
+--local function getOsName()
+--    local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
+--    if BinaryFormat == "dll" then
+--        return "windows"
+--    elseif BinaryFormat == "so" then
+--        return "linux"
+--    elseif BinaryFormat == "dylib" then
+--       return "mac"
+--    end
+--    BinaryFormat = nil
+--end
 
-local function isSupportedWinOSVersion()
-    local result = false
-    local verCommand = "ver"
-    local verHandle = io.popen(verCommand)
-    local verResult = verHandle:read("*a")
-    verHandle:close()
-    if (string.find(verResult, "Version 6.")) then result=true end
-    return result
-end
+--local function isSupportedWinOSVersion()
+--    local result = false
+--    local verCommand = "ver"
+--    local verHandle = io.popen(verCommand)
+--    local verResult = verHandle:read("*a")
+--    verHandle:close()
+--    if (string.find(verResult, "Version 6.")) then result=true end
+--    return result
+--end
 
-local function is64BitWinOSVersion()
-    local osBit = nil
-    local bitCommand = "wmic os get osarchitecture"
-    local bitHandle = io.popen(bitCommand)
-    local bitResult = bitHandle:read("*a")
-    bitHandle:close()
-    if (string.find(bitResult, "64")) then
-        return true else return false
-    end
-    return osBit
-end
+--local function is64BitWinOSVersion()
+--    local osBit = nil
+--    local bitCommand = "wmic os get osarchitecture"
+--    local bitHandle = io.popen(bitCommand)
+--    local bitResult = bitHandle:read("*a")
+--    bitHandle:close()
+--    if (string.find(bitResult, "64")) then
+--        return true else return false
+--    end
+--    return osBit
+--end
 
 
 

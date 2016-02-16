@@ -9,6 +9,9 @@
 
 local pluginHelper = {}
 
+local function test()
+        return "test"
+        end
 
 -- -------------------------------------------------------------------------------------------------------
 -- -- Download functions
@@ -33,17 +36,17 @@ local pluginHelper = {}
 -- -- OS functions
 -- ---------------------------------------------------------------------------------------------------------
 
-local function getOsName()
+--local function getOsName()
 --    local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
 --    if BinaryFormat == "dll" then
-        return "windows"
+--        return "windows"
 --    elseif BinaryFormat == "so" then
 --        return "linux"
 --    elseif BinaryFormat == "dylib" then
 --       return "mac"
 --    end
 --    BinaryFormat = nil
-end
+--end
 
 --local function isSupportedWinOSVersion()
 --    local result = false
@@ -237,7 +240,7 @@ end
 --
 --pluginHelper.is64BitWinOSVersion = is64BitWinOSVersion
 --pluginHelper.isSupportedWinOSVersion = isSupportedWinOSVersion
-pluginHelper.getOsName = getOsName
+--pluginHelper.getOsName = getOsName
 --pluginHelper.downloadFile = downloadFile
 --pluginHelper.Extract = Extract
 --pluginHelper.get_win_binary_path = get_win_binary_path
@@ -249,6 +252,6 @@ pluginHelper.getOsName = getOsName
 --pluginHelper.winApacheRestart = winApacheRestart
 --pluginHelper.linuxApacheRestart = linuxApacheRestart
 
-
+pluginHelper.test = test
 
 return pluginHelper

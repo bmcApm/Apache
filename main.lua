@@ -18,4 +18,4 @@ local _helper = require('pluginHelper')
 --if (_helper.getOsName()) == "mac" then _macOS.execute() end
 
 
-Print (_helper.getOsName())
+Print (_helper.test())

@@ -9,6 +9,7 @@
 
 local pluginHelper = {}
 
+local los = require('los')
 -- -------------------------------------------------------------------------------------------------------
 -- -- Download functions
 -- -------------------------------------------------------------------------------------------------------
@@ -33,15 +34,7 @@ local pluginHelper = {}
 -- ---------------------------------------------------------------------------------------------------------
 
 local function getOsName()
-    local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
-    if BinaryFormat == "dll" then
-    return "windows"
-    elseif BinaryFormat == "so" then
-        return "linux"
-    elseif BinaryFormat == "dylib" then
-       return "mac"
-    end
-    BinaryFormat = nil
+   return los.type()
 end
 
 --local function isSupportedWinOSVersion()

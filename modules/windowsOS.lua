@@ -7,28 +7,28 @@
 --
 
 local windowsOS = {}
-local _helper = require("pluginHelper")
+--local _helper = require("pluginHelper")
 
-local apacheProperties = {}
-local apache_exe_path = nil
-local apache_root_directory = nil
-local serverVersion = nil
-local serverArchitecture = nil
-local serverConfigFile = nil
-local serverConfigFilePath = nil
-
-
-local fileLocation = "http://vw-tlv-ad-qa18/Apache/"
-local downloadFileDestination = "C:/tmp/Apache/"
-local installFileDestination = "C:/tmp/Apache/"
+--local apacheProperties = {}
+--local apache_exe_path = nil
+--local apache_root_directory = nil
+--local serverVersion = nil
+--local serverArchitecture = nil
+--local serverConfigFile = nil
+--local serverConfigFilePath = nil
 
 
-local fileNameApache22_64bit = "Apache22Win64bit.zip"
-local fileNameApache24_64bit = "Apache24Win64bit.zip"
-local fileNameApache22_32bit = "Apache22Win32bit.zip"
-local fileNameApache24_32bit = "Apache24Win32bit.zip"
-local confFileNameApache22 = "bmc-aeuem-apache22.conf"
-local confFileNameApache24 = "bmc-aeuem-apache24.conf"
+--local fileLocation = "http://vw-tlv-ad-qa18/Apache/"
+--local downloadFileDestination = "C:/tmp/Apache/"
+--local installFileDestination = "C:/tmp/Apache/"
+
+
+--local fileNameApache22_64bit = "Apache22Win64bit.zip"
+--local fileNameApache24_64bit = "Apache24Win64bit.zip"
+--local fileNameApache22_32bit = "Apache22Win32bit.zip"
+--local fileNameApache24_32bit = "Apache24Win32bit.zip"
+--local confFileNameApache22 = "bmc-aeuem-apache22.conf"
+--local confFileNameApache24 = "bmc-aeuem-apache24.conf"
 
 --
 --

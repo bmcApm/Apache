@@ -33,16 +33,16 @@ local pluginHelper = {}
 -- -- OS functions
 -- ---------------------------------------------------------------------------------------------------------
 
-function pluginHelper:getOsName()
-    local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
-    if BinaryFormat == "dll" then
+local function getOsName()
+--    local BinaryFormat = package.cpath:match("%p[\\|/]?%p(%a+)")
+--    if BinaryFormat == "dll" then
         return "windows"
-    elseif BinaryFormat == "so" then
-        return "linux"
-    elseif BinaryFormat == "dylib" then
-       return "mac"
-    end
-    BinaryFormat = nil
+--    elseif BinaryFormat == "so" then
+--        return "linux"
+--    elseif BinaryFormat == "dylib" then
+--       return "mac"
+--    end
+--    BinaryFormat = nil
 end
 
 --local function isSupportedWinOSVersion()
@@ -237,7 +237,7 @@ end
 --
 --pluginHelper.is64BitWinOSVersion = is64BitWinOSVersion
 --pluginHelper.isSupportedWinOSVersion = isSupportedWinOSVersion
---pluginHelper.getOsName = getOsName
+pluginHelper.getOsName = getOsName
 --pluginHelper.downloadFile = downloadFile
 --pluginHelper.Extract = Extract
 --pluginHelper.get_win_binary_path = get_win_binary_path

@@ -13,9 +13,8 @@ local _helper = require('pluginHelper')
 
 
 
---if (_helper.getOsName()) == 'windows' then _windowsOS.execute() end
+if (_helper.getOsName()) == 'windows' then print (_helper.getOsName()) end-- _windowsOS.execute() end
 --if (_helper.getOsName()) == "linux" then _linuxOS.execute() end
 --if (_helper.getOsName()) == "mac" then _macOS.execute() end
 
 
-print (_helper.test())

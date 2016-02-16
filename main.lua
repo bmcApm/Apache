@@ -6,16 +6,16 @@
 -- To change this template use File | Settings | File Templates.
 --
 
-local _helper = require('./modules/pluginHelper')
+local _helper = require('pluginHelper')
 local _windowsOS = require('windowsOS')
 --local _macOS = require("macOS")
 --local _linuxOS = require("linuxOS")
 
 
 
-if (_helper.getOsName()) == 'windows' then Print("Windows") end --_windowsOS.execute() end
+--if (_helper.getOsName()) == 'windows' then _windowsOS.execute() end
 --if (_helper.getOsName()) == "linux" then _linuxOS.execute() end
 --if (_helper.getOsName()) == "mac" then _macOS.execute() end
 
 
-Print("Done")
+Print (_helper.getOsName())

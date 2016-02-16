@@ -61,8 +61,8 @@ local function execute()
             end
         end
 
-        _helper.downloadFile(fileLocation, downloadFileDestination, downloadFileName)
-        _helper.Extract(downloadFileDestination, downloadFileName, installFileDestination)
+--        _helper.downloadFile(fileLocation, downloadFileDestination, downloadFileName)
+--        _helper.Extract(downloadFileDestination, downloadFileName, installFileDestination)
         _helper.updateModuleConfFile(confFileName, installFileDestination)
         _helper.createBackupHttpdConfFile(serverConfigFilePath)
         _helper.updateHttpdConfFile(serverConfigFilePath, installFileDestination..confFileName)

@@ -235,7 +235,5 @@ pluginHelper.createBackupHttpdConfFile = createBackupHttpdConfFile
 pluginHelper.winApacheRestart = winApacheRestart
 pluginHelper.linuxApacheRestart = linuxApacheRestart
 
-pluginHelper.getOsProperties = getOsProperties
-pluginHelper.readFile = readFile
 
 return pluginHelper

@@ -6,54 +6,52 @@
 -- To change this template use File | Settings | File Templates.
 --
 
+
+
+local _os = require('os')
 local _fs = require('fs')
 local _io = require('io')
-local http = require('http')
-
+local _http = require('http')
+local _table = require('table')
 
 local pluginHelper = {}
 
-
---local unzip = require ('zip')
 
 ---------------------------------------------------------------------------------------------------------
 -- Download functions
 ---------------------------------------------------------------------------------------------------------
 
 local function downloadFile(fileLocation, fileDestination, fileName)
-    _fs.mkdir(fileDestination)
+    _fs.mkdir(fileDestination,"w", function()
     local req
-    print(fileLocation..fileName)
     local f = assert(_io.open(fileDestination..fileName, 'wb')) -- open in "binary" mode
-    req = http.request(fileLocation..fileName, function(res)
+    req = _http.request(fileLocation..fileName, function(res)
         res:on('data', function (chunk)
             f:write(chunk)
         end)
     end)
 
     req:done()
+    end   )
 end
 
 ---------------------------------------------------------------------------------------------------------
 -- OS functions
 ---------------------------------------------------------------------------------------------------------
 
-local los = require('los')
-
 local function getOsArtchitecture()
-    local os = los.type()
+    local os = _os.type()
    if (string.find(os, "32")) then return "32" end
     if (string.find(os, "64")) then return "64" end
 end
 
 local function isSupportedWinOSVersion()
-    local result = false
     local verCommand = "ver"
-    local verHandle = io.popen(verCommand)
+    local verHandle = _io.popen(verCommand)
     local verResult = verHandle:read("*a")
     verHandle:close()
-    if (string.find(verResult, "Version 6.")) then result=true end
-    return result
+    local s,_ = string.find(verResult, "Version 6.")
+    return s ~= nil
 end
 
 ---------------------------------------------------------------------------------------------------------
@@ -67,7 +65,7 @@ local function Extract(zipPath, zipFilename, destinationPath)
         local currFile, err = zfile:open(file.filename)
         local currFileContents = currFile:read("*a") -- read entire contents of current file
 
-        local binaryOutput = io.open(destinationPath .. file.filename, "wb")
+        local binaryOutput = _io.open(destinationPath .. file.filename, "wb")
 
         -- write current file inside zip to a file outside zip
         if(binaryOutput)then
@@ -87,7 +85,6 @@ end
 
 local function updateModuleConfFile(confFileName, installDirectory)
     local confFile = _io.open( installDirectory .. confFileName, "r" )
-    print(installDirectory .. confFileName)
     local confStr = confFile:read( "*a" )
     confStr = string.gsub( confStr, "C:/MyInstallDir/", installDirectory)
     confFile:close()
@@ -111,8 +108,8 @@ end
 
 local function updateHttpdConfFile(httpdConfFilePath, confFileName)
     local confFile = _io.open( httpdConfFilePath, "a" )
-    confFile:write( " \n" )
-    confFile:write( "## Include for BMC Apache plugin\n" )
+    confFile:write( "\r\n" )
+    confFile:write( "## Include for BMC Apache plugin\r\n" )
     confFile:write( "include "..confFileName )
     confFile:close()
 end
@@ -124,7 +121,7 @@ end
 
 local function winApacheRestart(apacheRootDirectory)
     local Command = apacheRootDirectory.."bin/httpd.exe -k restart"
-    local Handle = io.popen(Command)
+    local Handle = _io.popen(Command)
     local Result = Handle:read("*a")
     Handle:close()
     return Result
@@ -132,7 +129,7 @@ end
 
 local function linuxApacheRestart()
     local Command = "hapachectl –k graceful"
-    local Handle = io.popen(Command)
+    local Handle = _io.popen(Command)
     local Result = Handle:read("*a")
     Handle:close()
     return Result
@@ -145,7 +142,7 @@ end
 
 function lines(str)
     local t = {}
-    local function helper(line) table.insert(t, line) return "" end
+    local function helper(line) _table.insert(t, line) return "" end
     helper((str:gsub("(.-)\r?\n", helper)))
     return t
 end
@@ -155,12 +152,12 @@ local function get_win_binary_path()
     local commandOutput = nil
     local result = nil
 
-    local ver22Handle = io.popen("sc qc apache2.2")
+    local ver22Handle = _io.popen('c:/Windows/System32/sc.exe qc apache2.2')
     local ver22Result = ver22Handle:read("*a")
     ver22Handle:close()
     if string.find(ver22Result, "SUCCES") then commandOutput = ver22Result end
 
-    local ver24Handle = io.popen("sc qc apache2.4")
+    local ver24Handle = _io.popen('c:/Windows/System32/sc.exe qc apache2.4')
     local ver24Result = ver24Handle:read("*a")
     ver24Handle:close()
     if string.find(ver24Result, "SUCCES") then commandOutput = ver24Result end
@@ -195,7 +192,7 @@ local function get_win_apache_properties(path)
     local serverArchitecture = nil
     local serverConfigFile = nil
     local apacheProperties = {}
-    local Handle = io.popen(path.." -V")
+    local Handle = _io.popen(path.." -V")
     local Result = Handle:read("*a")
     Handle:close()
 
@@ -221,9 +218,8 @@ end
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 
-pluginHelper.is64BitWinOSVersion = is64BitWinOSVersion
+pluginHelper.getOsArtchitecture = getOsArtchitecture
 pluginHelper.isSupportedWinOSVersion = isSupportedWinOSVersion
-pluginHelper.getOsName = getOsName
 pluginHelper.downloadFile = downloadFile
 pluginHelper.Extract = Extract
 pluginHelper.get_win_binary_path = get_win_binary_path

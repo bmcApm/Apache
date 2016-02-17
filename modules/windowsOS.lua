@@ -6,7 +6,7 @@
 -- To change this template use File | Settings | File Templates.
 --
 
-local _helper = require('./pluginHelper')
+local _helper = require('pluginHelper')
 
 
 local windowsOS = {}
@@ -77,3 +77,5 @@ end
 windowsOS.execute = execute
 
 return windowsOS
+
+
